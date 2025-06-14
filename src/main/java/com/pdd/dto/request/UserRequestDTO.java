@@ -1,7 +1,7 @@
 package com.pdd.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.pdd.utils.PhoneNumber;
+import com.pdd.utils.*;
 import jakarta.validation.constraints.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -28,6 +28,15 @@ public class UserRequestDTO implements Serializable {
     @NotEmpty
     private List<String> permisstion;
 
+    @EnumPattern(name = "status", regexp = "ACTIVE|INACTIVE|NONE")
+    private UserStatus status;
+
+    @GenderSubset(anyOf = {Gender.MALE, Gender.FEMALE, Gender.OTHER})
+    private Gender gender;
+
+    @NotNull(message = "type must be not null")
+    @EnumValue(name = "type", enumClass = UserType.class)
+    private String type;
 
     public UserRequestDTO(String firstName, String lastName, String phone, String email) {
         this.firstName = firstName;
@@ -82,5 +91,29 @@ public class UserRequestDTO implements Serializable {
 
     public void setPermisstion(List<String> permisstion) {
         this.permisstion = permisstion;
+    }
+
+    public UserStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(UserStatus status) {
+        this.status = status;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

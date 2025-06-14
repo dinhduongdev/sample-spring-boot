@@ -10,8 +10,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/user")
 public class UserController {
-
-
     @PostMapping("/")
     public String addUser(@RequestBody @Valid UserRequestDTO userDTO) {
         return "User added";
