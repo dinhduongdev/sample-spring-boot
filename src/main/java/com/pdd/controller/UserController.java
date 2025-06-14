@@ -2,6 +2,7 @@ package com.pdd.controller;
 
 
 import com.pdd.dto.request.UserRequestDTO;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,12 +13,12 @@ public class UserController {
 
 
     @PostMapping("/")
-    public String addUser(@RequestBody UserRequestDTO userDTO) {
+    public String addUser(@RequestBody @Valid UserRequestDTO userDTO) {
         return "User added";
     }
 
     @PutMapping("/{userId}")
-    public String updateUser(@PathVariable Long userId, @RequestBody UserRequestDTO userDTO) {
+    public String updateUser(@PathVariable Long userId, @Valid @RequestBody UserRequestDTO userDTO) {
         System.out.println("Request update userId: " + userId);
         return "User updated";
     }

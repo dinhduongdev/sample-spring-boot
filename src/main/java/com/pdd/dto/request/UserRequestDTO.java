@@ -1,12 +1,33 @@
 package com.pdd.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.pdd.utils.PhoneNumber;
+import jakarta.validation.constraints.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 public class UserRequestDTO implements Serializable {
+    @NotBlank(message = "firstName must be not blank")
     private String firstName;
+    @NotNull(message = "lastName must be not null")
     private String lastName;
+    @Email(message = "email invalid format")
     private String email;
+
+    @PhoneNumber
     private String phone;
+
+    @NotNull(message = "dateOfBirth must be not null")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(pattern = "MM/dd/yyyy")
+    private Date dateOfBirth;
+
+    @NotEmpty
+    private List<String> permisstion;
+
 
     public UserRequestDTO(String firstName, String lastName, String phone, String email) {
         this.firstName = firstName;
@@ -45,5 +66,21 @@ public class UserRequestDTO implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public List<String> getPermisstion() {
+        return permisstion;
+    }
+
+    public void setPermisstion(List<String> permisstion) {
+        this.permisstion = permisstion;
     }
 }
