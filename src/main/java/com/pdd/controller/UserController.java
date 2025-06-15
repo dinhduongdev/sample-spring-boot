@@ -3,31 +3,38 @@ package com.pdd.controller;
 
 import com.pdd.dto.request.UserRequestDTO;
 import com.pdd.dto.response.ResponseData;
-import com.pdd.dto.response.ResponseSuccess;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.ExampleObject;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import com.pdd.dto.response.ResponseError;
+import com.pdd.exception.ResourceNotFoundExeption;
+import com.pdd.service.UserService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/user")
+@Validated
 public class UserController {
 
-
+    @Autowired
+    UserService userService;
 
     @PostMapping("/")
     public ResponseData<Integer> addUser(@RequestBody @Valid UserRequestDTO userDTO) {
-        return new ResponseData<>(HttpStatus.CREATED.value(), "User added successfully", 1);
+        try {
+            userService.addUser(userDTO);
+            return new ResponseData<>(HttpStatus.CREATED.value(), "User added successfully", 1);
+        } catch (ResourceNotFoundExeption e) {
+            return new ResponseError(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
     }
 
     @PutMapping("/{userId}")
-    public ResponseData<?> updateUser(@PathVariable Long userId, @Valid @RequestBody UserRequestDTO userDTO) {
+    public ResponseData<?> updateUser(@PathVariable @Min(1) Long userId, @Valid @RequestBody UserRequestDTO userDTO) {
         return new ResponseData<>(HttpStatus.ACCEPTED.value(), "User updated successfully");
     }
 
