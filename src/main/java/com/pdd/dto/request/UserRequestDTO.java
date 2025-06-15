@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+
 public class UserRequestDTO implements Serializable {
     @NotBlank(message = "firstName must be not blank")
     private String firstName;

@@ -1,6 +1,7 @@
 package com.pdd.controller;
 
 
+import com.pdd.configuration.Translator;
 import com.pdd.dto.request.UserRequestDTO;
 import com.pdd.dto.response.ResponseData;
 import com.pdd.dto.response.ResponseError;
@@ -25,12 +26,7 @@ public class UserController {
 
     @PostMapping("/")
     public ResponseData<Integer> addUser(@RequestBody @Valid UserRequestDTO userDTO) {
-        try {
-            userService.addUser(userDTO);
-            return new ResponseData<>(HttpStatus.CREATED.value(), "User added successfully", 1);
-        } catch (ResourceNotFoundExeption e) {
-            return new ResponseError(HttpStatus.BAD_REQUEST, e.getMessage());
-        }
+        return new ResponseData<>(HttpStatus.CREATED.value(), Translator.toLocale("user.add.success"), 1);
     }
 
     @PutMapping("/{userId}")
