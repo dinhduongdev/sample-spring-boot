@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: Sample-Spring-Boot
+  profiles:
+    active: @spring.profiles.active@
