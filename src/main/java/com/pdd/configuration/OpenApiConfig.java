@@ -20,12 +20,17 @@ import java.util.List;
 @Profile("!prod")
 public class OpenApiConfig {
     @Bean
-    public OpenAPI openAPI(@Value("${open.api.title}") String title,
-                           @Value("${open.api.version}") String version,
-                           @Value("${open.api.description}") String description,
-                           @Value("${open.api.serverUrl}") String serverUrl,
-                           @Value("${open.api.serverName}") String serverName
+    public OpenAPI openAPI(@Value("${openapi.service.title}") String title,
+                           @Value("${openapi.service.version}") String version,
+                           @Value("${openapi.service.description}") String description,
+                           @Value("${openapi.service.serverUrl}") String serverUrl,
+                           @Value("${openapi.service.serverName}") String serverName
     ) {
+        System.out.println("title" + title);
+        System.out.println("version" + version);
+        System.out.println("description" + description);
+        System.out.println("serverUrl" + serverUrl);
+        System.out.println("serverName" + serverName);
         return new OpenAPI().info(new Info()
                 .title(title)
                 .version(version)

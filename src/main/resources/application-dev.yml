@@ -1,5 +1,3 @@
-server:
-    port: 8080
 spring:
     config:
         activate:
@@ -8,5 +6,8 @@ openapi:
     service:
         api-docs: api-service
         server: http://localhost:${server.port}
-        title: API Service
+        title: ${API_TITLE:DUMMY-API-TITLE}
         version: 1.0.0
+        description: "API docs"
+        serverUrl: "serverUrl"
+        serverName: "serverName"
